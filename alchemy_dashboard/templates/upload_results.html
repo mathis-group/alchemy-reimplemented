@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Alchemy Experiment Upload & Visualization</title>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.3.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+    <div class="container">
+        <h2>Upload Simulation Results</h2>
+        <input type="file" id="resultsFile" class="form-control mb-3">
+        <button class="btn btn-primary" id="uploadBtn">Upload Results</button>
+
+        <div id="uploadMessage" class="mt-3"></div>
+
+        <div id="visualizationButtons" class="mt-3" style="display: none;">
+            <button class="btn btn-info" id="comparisonBtn">Comparison</button>
+            <button class="btn btn-info" id="timeSeriesBtn">Time Series</button>
+        </div>
+
+        <div id="visualizationArea" class="mt-4"></div>
+    </div>
+
+<script>
+let uploadedFilename = "";
+
+$("#uploadBtn").click(function() {
+    let formData = new FormData();
+    let file = $("#resultsFile")[0].files[0];
+    formData.append('results_file', file);
+
+    $.ajax({
+        url: '/upload_results',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            if (response.status === 'success') {
+                $("#uploadMessage").html('<div class="alert alert-success">File uploaded successfully!</div>');
+                uploadedFilename = response.filename;
+                $("#visualizationButtons").show();
+            } else {
+                $("#uploadMessage").html('<div class="alert alert-danger">' + response.message + '</div>');
+            }
+        }
+    });
+});
+
+function fetchVisualization(viewType) {
+    $.ajax({
+        url: `/visualize/${viewType}/${uploadedFilename}`,
+        type: 'GET',
+        success: function(response) {
+            if (response.status === 'success') {
+                $("#visualizationArea").html(response.div);
+                Bokeh.embed.embed_item(JSON.parse(response.script), "visualizationArea");
+            } else {
+                $("#visualizationArea").html('<div class="alert alert-danger">' + response.message + '</div>');
+            }
+        },
+        error: function() {
+            $("#visualizationArea").html('<div class="alert alert-danger">Error loading visualization.</div>');
+        }
+    });
+}
+
+$("#comparisonBtn").click(() => fetchVisualization('comparison'));
+$("#timeSeriesBtn").click(() => fetchVisualization('time_series'));
+</script>
+
+</body>
+</html>

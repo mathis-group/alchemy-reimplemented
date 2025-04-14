@@ -1,0 +1,10 @@
+λa.λb.λc.λd.λe.λf.λg.b
+λa.λb.λc.λd.λe.λf.λg.λh.λi.d
+λa.λb.λc.λd.λe.λf.λg.λh.c
+λa.λb.λc.λd.λe.λf.λg.λh.λi.d
+λa.λb.λc.λd.λe.λf.λg.λh.c
+λa.λb.λc.λd.λe.λf.a
+λa.λb.λc.λd.λe.λf.λg.b
+λa.λb.λc.λd.λe.λf.a
+λa.λb.λc.λd.λe.λf.λg.λh.λi.λj.e
+λa.λb.λc.λd.λe.λf.λg.b

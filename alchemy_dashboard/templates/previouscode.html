@@ -1,0 +1,155 @@
+Unified Analysis & Visualization Page (hidden by default)
+<div id="analysis-page" style="display: none;">
+  <div class="content-area">
+    <div class="sidebar">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-upload card-title-icon"></i>
+            Upload & Configure
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Upload JSON File</label>
+            <div class="file-upload-container">
+              <input type="file" class="form-control" accept=".json" id="jsonFileInput"/>
+              <button class="btn btn-primary" style="margin-top: 0.5rem;">
+                <i class="fas fa-upload"></i> Upload File
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Select Experiments to Compare</label>
+            <div class="checkbox-container" id="experimentCheckboxes">
+              <!-- Dynamically populated with uploaded experiments -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Visualization Type</label>
+            <select class="form-control" id="visualizationType">
+              <option value="time-series">Time Series</option>
+              <option value="comparison">Comparison</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Metrics to Display</label>
+            <div class="checkbox-container">
+              <label class="checkbox-item">
+                <input type="checkbox" checked/>
+                <span>Entropy</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" checked/>
+                <span>Unique Expressions</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox"/>
+                <span>Expression Size</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox"/>
+                <span>Collision Rate</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Time Range</label>
+            <div class="number-input-group">
+              <input class="form-control" type="number" placeholder="Start" value="0"/>
+              <input class="form-control" type="number" placeholder="End" value="1000"/>
+            </div>
+          </div>
+
+          <button class="btn btn-success btn-block">
+            <i class="fas fa-chart-line"></i> Generate Visualizations
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-info-circle card-title-icon"></i>
+            Selected Experiments
+          </h3>
+        </div>
+        <div class="card-body">
+          <div id="selectedExperimentsList">
+            <!-- Dynamically populated with selected experiment details -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-chart-line card-title-icon"></i>
+            Time Series Analysis
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            {{ bokeh_div | safe }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-chart-bar card-title-icon"></i>
+            Comparison Analysis
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            {{ bokeh_div | safe }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-table card-title-icon"></i>
+            Summary Statistics
+          </h3>
+        </div>
+        <div class="card-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Experiment 1</th>
+                <th>Experiment 2</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Average Entropy</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Unique Expressions</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
