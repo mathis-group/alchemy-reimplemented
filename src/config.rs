@@ -252,8 +252,13 @@ impl Serialize for ConfigSeed {
     where
         S: serde::Serializer,
     {
+<<<<<<< HEAD
         if let Some(seed) = self.seed() {
             serializer.serialize_str(&encode_hex(&seed))
+=======
+        if self.seed().is_some() {
+            serializer.serialize_str(&encode_hex(&self.get()))
+>>>>>>> visualization/Rust+Visualization
         } else {
             serializer.serialize_none()
         }

@@ -1,0 +1,306 @@
+{
+    "config": {
+        "total_collisions": 1000,
+        "polling_frequency": 100,
+        "input_expressions": {
+            "generator": "from_file",
+            "params": {
+                "filename": "last_state_exprs_2.txt"
+            }
+        },
+        "measurements": [
+            "entropy",
+            "unique_expressions",
+            "len_unique_expressions"
+        ]
+    },
+    "seed_used": null,
+    "generated_expressions": [
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+        "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c"
+    ],
+    "collisions_data": {
+        "collision_100": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a"
+            ],
+            "entropy": 2.446439266204834,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i"
+            ],
+            "len_unique_expressions": 6
+        },
+        "collision_200": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b"
+            ],
+            "entropy": 2.446439504623413,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b"
+            ],
+            "len_unique_expressions": 6
+        },
+        "collision_300": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f"
+            ],
+            "entropy": 2.446439266204834,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h"
+            ],
+            "len_unique_expressions": 6
+        },
+        "collision_400": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j"
+            ],
+            "entropy": 2.7219278812408447,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e"
+            ],
+            "len_unique_expressions": 7
+        },
+        "collision_500": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.k",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.\u03bbp.l"
+            ],
+            "entropy": 2.9219281673431396,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.k",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.\u03bbp.l",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b"
+            ],
+            "len_unique_expressions": 8
+        },
+        "collision_600": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g"
+            ],
+            "entropy": 2.446439266204834,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c"
+            ],
+            "len_unique_expressions": 6
+        },
+        "collision_700": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d"
+            ],
+            "entropy": 2.64643931388855,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e"
+            ],
+            "len_unique_expressions": 7
+        },
+        "collision_800": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g"
+            ],
+            "entropy": 2.321928024291992,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.f",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i"
+            ],
+            "len_unique_expressions": 6
+        },
+        "collision_900": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a"
+            ],
+            "entropy": 2.9219281673431396,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.b",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.h",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.g",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.a",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i"
+            ],
+            "len_unique_expressions": 8
+        },
+        "collision_1000": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.k",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.\u03bbp.\u03bbq.\u03bbr.n",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j"
+            ],
+            "entropy": 2.64643931388855,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.\u03bbp.\u03bbq.\u03bbr.n",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.k"
+            ],
+            "len_unique_expressions": 7
+        }
+    },
+    "last_state": {
+        "collision_1000": {
+            "state": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.k",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.\u03bbp.\u03bbq.\u03bbr.n",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j"
+            ],
+            "entropy": 2.64643931388855,
+            "unique_expressions": [
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.j",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.c",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.e",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.d",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.\u03bbp.\u03bbq.\u03bbr.n",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.i",
+                "\u03bba.\u03bbb.\u03bbc.\u03bbd.\u03bbe.\u03bbf.\u03bbg.\u03bbh.\u03bbi.\u03bbj.\u03bbk.\u03bbl.\u03bbm.\u03bbn.\u03bbo.k"
+            ],
+            "len_unique_expressions": 7
+        }
+    }
+}

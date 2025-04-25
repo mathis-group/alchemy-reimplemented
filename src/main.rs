@@ -117,6 +117,26 @@ fn get_config(cli: &Cli) -> std::io::Result<config::Config> {
     Ok(config)
 }
 
+/// Read lambda expressions from stdin and return an iterator over them
+pub fn read_inputs() -> impl Iterator<Item = Term> {
+    let mut expression_strings = Vec::<String>::new();
+    let stdin = io::stdin();
+    let reader = BufReader::new(stdin.lock());
+
+    for line in reader.lines() {
+        match line {
+            Ok(line) => expression_strings.push(line),
+            Err(_) => break,
+        }
+    }
+
+    let expressions = expression_strings
+        .iter()
+        .map(|s| lambda_calculus::parse(s, lambda_calculus::Classic).unwrap())
+        .collect::<Vec<Term>>();
+    expressions.into_iter()
+}
+
 pub fn generate_expressions_and_seed_soup(cfg: &config::Config) -> lambda::recursive::LambdaSoup {
     let expressions = match &cfg.generator_config {
         config::Generator::BTree(gen_cfg) => {

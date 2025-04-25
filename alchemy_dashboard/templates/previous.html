@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alchemy Experiment Dashboard</title>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.6.3.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Bokeh Resources (will be replaced by Flask) -->
+<style>
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #6366F1;
+      --primary-dark: #4338CA;
+      --secondary: #0EA5E9;
+      --secondary-light: #38BDF8;
+      --accent: #F59E0B;
+      --accent-light: #FBBF24;
+      --background: #F8FAFC;
+      --surface: #FFFFFF;
+      --surface-hover: #F1F5F9;
+      --text-primary: #1E293B;
+      --text-secondary: #64748B;
+      --text-tertiary: #94A3B8;
+      --border: #E2E8F0;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --error: #EF4444;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --header-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    /* Hide all checkbox-like square elements */
+    input[type="checkbox"] {
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      border: none !important;
+      background: transparent !important;
+      width: 0 !important;
+      height: 0 !important;
+      position: absolute !important;
+      opacity: 0 !important;
+    }
+    
+    /* Hide Font Awesome square icons */
+    .fa-square,
+    .fa-square-o,
+    .fa-check-square,
+    .fa-check-square-o {
+      display: none !important;
+    }
+    
+    /* Target other potential square UI elements */
+    [class*="checkbox"]::before,
+    [class*="check-"]::before,
+    [role="checkbox"]::before,
+    [type="checkbox"] + label::before,
+    [type="checkbox"] + span::before {
+      display: none !important;
+    }
+    
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2.5rem 0;
+      box-shadow: var(--header-shadow);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+    }
+    
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: 5%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+    }
+    
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .header-title {
+      font-size: 2.75rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    
+    .header-description {
+      font-size: 1.125rem;
+      opacity: 0.9;
+      max-width: 800px;
+      font-weight: 300;
+    }
+    
+    /* Navigation */
+    .nav-container {
+      background-color: var(--surface);
+      border-radius: 1rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      position: sticky;
+      top: 1rem;
+      z-index: 10;
+    }
+    
+    .nav-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 0.75rem;
+    }
+    
+    .nav-button {
+      flex: 1;
+      min-width: 160px;
+      background-color: var(--surface);
+      color: var(--text-primary);
+      border: 1px solid transparent;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.625rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+      background-color: var(--primary-light);
+      opacity: 0.05;
+      transition: var(--transition);
+    }
+    
+    .nav-button:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+    }
+    
+    .nav-button:hover::before {
+      height: 100%;
+    }
+    
+    .nav-button.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    
+    .nav-button.active::before {
+      display: none;
+    }
+    
+    .nav-button i {
+      font-size: 1.125rem;
+      transition: var(--transition);
+    }
+    
+    .nav-button:hover i {
+      transform: translateY(-1px);
+    }
+    
+    /* Main Content Area */
+    .content-area {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .sidebar {
+      width: 350px;
+      flex-shrink: 0;
+    }
+    
+    .main-content {
+      flex: 1;
+    }
+    
+    /* Cards */
+    .card {
+      background-color: var(--surface);
+      border-radius: 1rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+    
+    .card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    }
+    
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .card-title-icon {
+      color: var(--primary);
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background-color: var(--surface);
+      color: var(--text-primary);
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+    
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748B'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
+      background-position: right 1rem center;
+      background-repeat: no-repeat;
+      background-size: 1.25rem;
+      padding-right: 2.5rem;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      text-align: center;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      position: relative;
+      overflow: hidden;
+      font-family: inherit;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #0DA271;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    }
+    
+    .btn-block {
+      display: flex;
+      width: 100%;
+    }
+    
+    /* Visualization Area */
+    .visualization-area {
+      background-color: var(--surface);
+      border-radius: 1rem;
+      box-shadow: var(--card-shadow);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .chart-container {
+      height: 500px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      background-color: #FAFBFF;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .chart-container:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .chart-container::before {
+      content: "Chart Visualization";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--text-tertiary);
+      font-size: 1.125rem;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+    
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .feature-card {
+      background-color: var(--surface);
+      border-radius: 1rem;
+      box-shadow: var(--card-shadow);
+      padding: 1.5rem;
+      border-top: 4px solid var(--primary);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.03) 0%, rgba(14, 165, 233, 0.03) 100%);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 20px -7px rgba(99, 102, 241, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.03);
+    }
+    
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+    
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+      color: var(--primary);
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+      transition: var(--transition);
+    }
+    
+    .feature-card:hover .feature-icon {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%);
+    }
+    
+    .feature-icon i {
+      font-size: 1.5rem;
+    }
+    
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .feature-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Status Messages */
+    .status-message {
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .status-message i {
+      font-size: 1.25rem;
+    }
+    
+    .status-success {
+      background-color: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      color: var(--success);
+    }
+    
+    .status-error {
+      background-color: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      color: var(--error);
+    }
+    
+    /* Data Display */
+    .data-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 1rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+      padding: 0.875rem 1rem;
+      text-align: left;
+    }
+    
+    .data-table th {
+      font-weight: 600;
+      color: var(--text-secondary);
+      background-color: #F8FAFC;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+    }
+    
+    .data-table th:first-child {
+      border-top-left-radius: 0.5rem;
+    }
+    
+    .data-table th:last-child {
+      border-top-right-radius: 0.5rem;
+    }
+    
+    .data-table td {
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .data-table tr:last-child td:first-child {
+      border-bottom-left-radius: 0.5rem;
+    }
+    
+    .data-table tr:last-child td:last-child {
+      border-bottom-right-radius: 0.5rem;
+    }
+    
+    .data-table tbody tr {
+      transition: var(--transition);
+    }
+    
+    .data-table tbody tr:hover {
+      background-color: var(--surface-hover);
+    }
+    
+    /* Code Block */
+    .code-block {
+      background-color: #1E293B;
+      color: #E2E8F0;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      font-family: 'Monaco', 'Consolas', monospace;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    
+    /* Lambda Expressions List */
+    .lambda-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    .lambda-item {
+      font-family: 'Monaco', 'Consolas', monospace;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 1rem;
+      background-color: #F8FAFC;
+      border-radius: 0.5rem;
+      border-left: 3px solid var(--primary-light);
+      transition: var(--transition);
+    }
+    
+    .lambda-item:hover {
+      background-color: #F1F5F9;
+      transform: translateX(2px);
+    }
+    
+    /* Details Display */
+    .detail-row {
+      margin-bottom: 0.875rem;
+      display: flex;
+      align-items: baseline;
+    }
+    
+    .detail-label {
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-right: 0.5rem;
+      min-width: 140px;
+    }
+    
+    .detail-value {
+      color: var(--text-primary);
+    }
+    
+    /* Dashboard Header Section Divider */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      margin: 2.5rem 0 1.5rem;
+    }
+    
+    .section-divider-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--border);
+    }
+    
+    .section-divider-text {
+      padding: 0 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Custom Checkbox Styling - Hide Default Checkbox */
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 0;
+      height: 0;
+      position: absolute;
+      opacity: 0;
+    }
+    
+    /* Custom Checkbox Container */
+    .checkbox-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      cursor: pointer;
+      position: relative;
+      padding-left: 0;
+    }
+    
+    /* Add Custom Label Styling */
+    .checkbox-item span {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      position: relative;
+      transition: var(--transition);
+    }
+    
+    /* Add Selected State Styling for Labels */
+    .checkbox-item input[type="checkbox"]:checked + span {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    /* Number Input Group */
+    .number-input-group {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .number-input-group .form-control {
+      flex: 1;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .content-area {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+      }
+      
+      .nav-button {
+        min-width: 120px;
+        font-size: 0.9rem;
+      }
+      
+      .header-title {
+        font-size: 2.25rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-button {
+        padding: 0.75rem 1rem;
+      }
+      
+      .header-title {
+        font-size: 2rem;
+      }
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+<!-- Header -->
+  {{ bokeh_script|safe }}
+  <header>
+<div class="container">
+<div class="header-content">
+<h1 class="header-title">Alchemy Experiment Dashboard</h1>
+<p class="header-description">
+          Explore and analyze your alchemy experiments with interactive visualizations, real-time data processing, and comprehensive analytics.
+        </p>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<div class="container">
+<!-- Navigation -->
+<div class="nav-container">
+<div class="nav-wrapper">
+<button class="nav-button active">
+<i class="fas fa-home"></i>
+<span>Home</span>
+</button>
+<button class="nav-button">
+<i class="fas fa-database"></i>
+<span>Database View</span>
+</button>
+<button class="nav-button">
+<i class="fas fa-chart-line"></i>
+<span>Analysis & Visualization</span>
+</button>
+<button class="nav-button">
+<i class="fas fa-play"></i>
+<span>Run Simulation</span>
+</button>
+</div>
+</div>
+<!-- Welcome Page Content -->
+<div class="fade-in" id="welcome-page">
+<h2 style="margin-bottom: 1.5rem; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+<i class="fas fa-flask" style="color: var(--accent);"></i>
+        Welcome to the Alchemy Experiment Visualizer
+      </h2>
+<p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 800px; line-height: 1.6;">
+        This interactive dashboard allows you to visualize, analyze, and compare your alchemy experiment data.
+        Choose an option from the navigation bar above to get started.
+      </p>
+<div class="section-divider">
+<div class="section-divider-line"></div>
+<div class="section-divider-text">Key Features</div>
+<div class="section-divider-line"></div>
+</div>
+<div class="feature-grid">
+<div class="feature-card fade-in delay-1">
+<div class="feature-icon"><i class="fas fa-database"></i></div>
+<h3 class="feature-title">Database Visualization</h3>
+<p class="feature-description">
+            Explore experiments stored in your local database with interactive charts and detailed metrics.
+          </p>
+</div>
+<div class="feature-card fade-in delay-2">
+<div class="feature-icon"><i class="fas fa-upload"></i></div>
+<h3 class="feature-title">Upload Results</h3>
+<p class="feature-description">
+            Upload JSON result files to visualize and analyze experiment outcomes from any source.
+          </p>
+</div>
+<div class="feature-card fade-in delay-3">
+<div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+<h3 class="feature-title">Multi-Experiment Comparison</h3>
+<p class="feature-description">
+            Compare metrics across multiple experiments to identify patterns and differences.
+          </p>
+</div>
+<div class="feature-card fade-in delay-4">
+<div class="feature-icon"><i class="fas fa-clock"></i></div>
+<h3 class="feature-title">Time Series Analysis</h3>
+<p class="feature-description">
+            Analyze how your experiments evolve over time with specialized visualizations.
+          </p>
+</div>
+<div class="feature-card fade-in delay-5">
+<div class="feature-icon"><i class="fas fa-play"></i></div>
+<h3 class="feature-title">Run Simulation</h3>
+<p class="feature-description">
+            Configure and run alchemy experiments directly from the dashboard interface.
+          </p>
+</div>
+<div class="feature-card fade-in delay-5">
+<div class="feature-icon"><i class="fas fa-file-export"></i></div>
+<h3 class="feature-title">Export &amp; Share</h3>
+<p class="feature-description">
+            Export results in various formats and share your findings with collaborators.
+          </p>
+</div>
+</div>
+</div>
+<!-- Database View Page (hidden by default) -->
+<div id="db-visualization-page" style="display: none;">
+  <div class="content-area">
+    <div class="sidebar">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-filter card-title-icon"></i>
+            Experiment Selection
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Select Experiment</label>
+            <select class="form-control" id="experiment_dropdown">
+              <!-- Dynamically populated with database experiments -->
+            </select>
+          </div>
+          <div class="status-message status-success">
+            <i class="fas fa-check-circle"></i>
+            <span><strong>Success!</strong> Experiment data loaded.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-info-circle card-title-icon"></i>
+            Experiment Details
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="detail-row">
+            <span class="detail-label">Generator:</span>
+            <span class="detail-value">BTree</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Total Collisions:</span>
+            <span class="detail-value">1,000</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Polling Frequency:</span>
+            <span class="detail-value">10</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Timestamp:</span>
+            <span class="detail-value">2023-09-15 14:32:18</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Generator Parameters:</span>
+          </div>
+          <div class="code-block">
+            {
+              "size": 5,
+              "freevar_generation_probability": 0.5,
+              "max_free_vars": 3,
+              "standardization": "prefix"
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-chart-pie card-title-icon"></i>
+            Entropy Over Time
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            {{ bokeh_div | safe }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-chart-bar card-title-icon"></i>
+            Unique Expressions Over Time
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            {{ bokeh_div | safe }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-code card-title-icon"></i>
+            Initial Expressions
+          </h3>
+        </div>
+        <div class="card-body">
+          <ul class="lambda-list">
+            <li class="lambda-item">((λx.λy.x) (λz.z))</li>
+            <li class="lambda-item">((λx.x) (λy.λz.(y z)))</li>
+            <li class="lambda-item">(λx.(x x))</li>
+            <li class="lambda-item">((λx.λy.(x y)) (λz.z))</li>
+            <li class="lambda-item">(λx.λy.λz.((x z) (y z)))</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Unified Analysis & Visualization Page (hidden by default) -->
+<div id="analysis-page" style="display: none;">
+  <div class="content-area">
+    <div class="sidebar">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-upload card-title-icon"></i>
+            Upload & Configure
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Upload JSON File</label>
+            <div class="file-upload-container">
+              <input type="file" class="form-control" accept=".json" id="jsonFileInput"/>
+              <button class="btn btn-primary" style="margin-top: 0.5rem;">
+                <i class="fas fa-upload"></i> Upload File
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Select Experiments to Compare</label>
+            <div class="checkbox-container" id="experimentCheckboxes">
+              <!-- Dynamically populated with uploaded experiments -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Visualization Type</label>
+            <select class="form-control" id="visualizationType">
+              <option value="time-series">Time Series</option>
+              <option value="comparison">Comparison</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Metrics to Display</label>
+            <div class="checkbox-container">
+              <label class="checkbox-item">
+                <input type="checkbox" checked/>
+                <span>Entropy</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" checked/>
+                <span>Unique Expressions</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox"/>
+                <span>Expression Size</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox"/>
+                <span>Collision Rate</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Time Range</label>
+            <div class="number-input-group">
+              <input class="form-control" type="number" placeholder="Start" value="0"/>
+              <input class="form-control" type="number" placeholder="End" value="1000"/>
+            </div>
+          </div>
+
+          <button class="btn btn-success btn-block">
+            <i class="fas fa-chart-line"></i> Generate Visualizations
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-info-circle card-title-icon"></i>
+            Selected Experiments
+          </h3>
+        </div>
+        <div class="card-body">
+          <div id="selectedExperimentsList">
+            <!-- Dynamically populated with selected experiment details -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-chart-line card-title-icon"></i>
+            Time Series Analysis
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            {{ bokeh_div | safe }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-chart-bar card-title-icon"></i>
+            Comparison Analysis
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            {{ bokeh_div | safe }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-table card-title-icon"></i>
+            Summary Statistics
+          </h3>
+        </div>
+        <div class="card-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Experiment 1</th>
+                <th>Experiment 2</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Average Entropy</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Unique Expressions</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Run Simulation Page (hidden by default) -->
+<!-- Run Simulation Page - Modified to work with database -->
+<div id="simulation-page" style="display: none;">
+  <div class="content-area">
+    <div class="sidebar">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-cogs card-title-icon"></i>
+            Simulation Configuration
+          </h3>
+        </div>
+        <div class="card-body">
+          <form id="simulation-form" action="/run_simulation_form" method="POST" enctype="multipart/form-data">
+            <!-- Keep existing layout, just update form fields -->
+            <div class="form-group">
+              <label class="form-label">Total Collisions</label>
+              <input class="form-control" type="number" name="total_collisions" value="1000" id="total-collisions"/>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Polling Frequency</label>
+              <input class="form-control" type="number" name="polling_frequency" value="10" id="polling-frequency"/>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Random Seed</label>
+              <input class="form-control" type="number" name="random_seed" value="42"/>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Generator Type</label>
+              <select class="form-control" name="generator_type" id="generator-type">
+                <option value="from_file">From File</option>
+                <option value="BTree">BTree</option>
+                <option value="Fontana" selected>Fontana</option>
+              </select>
+            </div>
+            
+            <!-- Fontana Options -->
+            <div id="fontana-options">
+              <div class="form-group">
+                <label class="form-label">Abstraction Probability Range</label>
+                <div class="number-input-group">
+                  <input class="form-control" max="1" min="0" name="abs_low" step="0.1" type="number" value="0.1" id="abs-low"/>
+                  <input class="form-control" max="1" min="0" name="abs_high" step="0.1" type="number" value="0.5" id="abs-high"/>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Application Probability Range</label>
+                <div class="number-input-group">
+                  <input class="form-control" max="1" min="0" name="app_low" step="0.1" type="number" value="0.2" id="app-low"/>
+                  <input class="form-control" max="1" min="0" name="app_high" step="0.1" type="number" value="0.6" id="app-high"/>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Max Depth</label>
+                <input class="form-control" type="number" name="max_depth" value="5" id="max-depth"/>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Max Free Variables</label>
+                <input class="form-control" type="number" name="fontana_max_fv" value="2" id="max-free-vars"/>
+              </div>
+            </div>
+            
+            <!-- BTree Options (initially hidden) -->
+            <div id="btree-options" style="display: none;">
+              <div class="form-group">
+                <label class="form-label">Size</label>
+                <input class="form-control" type="number" name="btree_size" value="5"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">FreeVar Generation Probability</label>
+                <input class="form-control" type="number" name="freevar_probability" value="0.5" min="0" max="1" step="0.1"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Max Free Variables</label>
+                <input class="form-control" type="number" name="max_free_vars" value="3"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Standardization</label>
+                <select class="form-control" name="standardization">
+                  <option value="prefix" selected>Prefix</option>
+                  <option value="postfix">Postfix</option>
+                  <option value="none">None</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Number of Expressions</label>
+                <input class="form-control" type="number" name="num_expressions" value="10"/>
+              </div>
+            </div>
+            
+            <!-- From File Options (initially hidden) -->
+            <div id="from-file-options" style="display: none;">
+              <div class="form-group">
+                <label class="form-label">Upload File with Expressions</label>
+                <input class="form-control" type="file" name="expressions_file"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Or Enter Expressions Directly</label>
+                <textarea class="form-control" name="direct_input" rows="5" placeholder="One expression per line"></textarea>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Measurements</label>
+              <div>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="measurements" value="entropy" checked/>
+                  <span>Entropy</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="measurements" value="unique_expressions" checked/>
+                  <span>Unique Expressions</span>
+                </label>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-success btn-block">
+              <i class="fas fa-play"></i> Run Simulation
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="main-content" id="simulation-results">
+      <!-- Success message displayed after successful simulation -->
+      <div id="success-message" class="alert alert-success" style="display: none;">
+        <strong>Success!</strong> Simulation completed successfully.
+      </div>
+      
+      <!-- Loading indicator -->
+      <div id="loading-indicator" style="display: none; text-align: center; padding: 50px;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: var(--primary);"></i>
+        <p style="margin-top: 20px;">Running simulation... This may take a few moments.</p>
+      </div>
+      
+      <!-- Removed Visualization Blocks -->
+      
+      <!-- Simulation results summary -->
+      <div id="simulation-summary" class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-clipboard-list card-title-icon"></i>
+            Simulation Results
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="detail-row">
+            <span class="detail-label">Generator:</span>
+            <span class="detail-value" id="summary-generator">Fontana</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Total Collisions:</span>
+            <span class="detail-value" id="summary-collisions">1,000</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Initial Expressions:</span>
+            <span class="detail-value" id="summary-expressions">25</span>
+          </div>
+          
+          <!-- Link to view experiment details -->
+          <a id="view-experiment-link" href="#" class="btn btn-primary" style="margin-top: 1.5rem; display: none;">
+            <i class="fas fa-chart-line"></i> View Full Results
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+// Show/hide generator-specific options based on selection
+document.getElementById('generator-type').addEventListener('change', function() {
+  const selectedType = this.value;
+  
+  // Hide all option groups first
+  document.getElementById('from-file-options').style.display = 'none';
+  document.getElementById('btree-options').style.display = 'none';
+  document.getElementById('fontana-options').style.display = 'none';
+  
+  // Show the selected option group
+  if (selectedType === 'from_file') {
+    document.getElementById('from-file-options').style.display = 'block';
+  } else if (selectedType === 'BTree') {
+    document.getElementById('btree-options').style.display = 'block';
+  } else if (selectedType === 'Fontana') {
+    document.getElementById('fontana-options').style.display = 'block';
+  }
+});
+
+// Initialize with the current selection
+document.getElementById('generator-type').dispatchEvent(new Event('change'));
+
+// Handle form submission
+document.getElementById('simulation-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const resultsArea = document.getElementById('simulation-results');
+  const loadingIndicator = document.getElementById('loading-indicator');
+  const successMessage = document.getElementById('success-message');
+  const viewExperimentLink = document.getElementById('view-experiment-link');
+  
+  // Show loading indicator
+  loadingIndicator.style.display = 'block';
+  successMessage.style.display = 'none';
+  viewExperimentLink.style.display = 'none';
+  
+  // Submit the form via AJAX
+  const formData = new FormData(this);
+  
+  fetch(this.action, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.text())
+  .then(data => {
+    // Hide loading indicator
+    loadingIndicator.style.display = 'none';
+    
+    try {
+      // Try to parse as JSON
+      const jsonData = JSON.parse(data);
+      if (jsonData.status === 'error') {
+        throw new Error(jsonData.message);
+      } else if (jsonData.status === 'success') {
+        // Display success message
+        successMessage.style.display = 'block';
+        
+        // Update summary
+        document.getElementById('summary-generator').textContent = document.getElementById('generator-type').options[document.getElementById('generator-type').selectedIndex].text;
+        document.getElementById('summary-collisions').textContent = document.getElementById('total-collisions').value;
+        document.getElementById('summary-expressions').textContent = jsonData.initial_expressions || "N/A";
+        
+        // Set link to view full experiment
+        viewExperimentLink.href = '/view_experiment/' + jsonData.config_id;
+        viewExperimentLink.style.display = 'inline-flex';
+        
+        // If charts are included in the response, display them
+        if (jsonData.charts) {
+          document.getElementById('entropy-visualization').innerHTML = jsonData.charts.entropy_div;
+          document.getElementById('unique-expressions-visualization').innerHTML = jsonData.charts.unique_div;
+          eval(jsonData.charts.script);
+        }
+      }
+    } catch (e) {
+      // If it's not valid JSON, it's likely a redirect
+      // Extract the URL from response and redirect
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+      const redirectUrl = doc.querySelector('a')?.href || '/';
+      window.location.href = redirectUrl;
+    }
+  })
+  .catch(error => {
+    loadingIndicator.style.display = 'none';
+    console.error('Error:', error);
+    alert('Error running simulation: ' + error.message);
+  });
+});
+</script>
+
+<script>
+    // Page switching functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const navButtons = document.querySelectorAll('.nav-button');
+      
+      navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Update active state
+          navButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Hide all pages
+          const pages = [
+            document.getElementById('welcome-page'),
+            document.getElementById('db-visualization-page'),
+            document.getElementById('analysis-page'),
+            document.getElementById('simulation-page')
+          ];
+          
+          pages.forEach(page => {
+            if (page) page.style.display = 'none';
+          });
+          
+          // Show selected page based on button text
+          const buttonText = this.querySelector('span').textContent;
+          
+          if (buttonText === 'Home') {
+            document.getElementById('welcome-page').style.display = 'block';
+          } else if (buttonText === 'Database View') {
+            document.getElementById('db-visualization-page').style.display = 'block';
+          } else if (buttonText === 'Analysis & Visualization') {
+            document.getElementById('analysis-page').style.display = 'block';
+          } else if (buttonText === 'Run Simulation') {
+            document.getElementById('simulation-page').style.display = 'block';
+          }
+        });
+      });
+
+      // Handle file upload
+      const fileInput = document.getElementById('jsonFileInput');
+      const experimentCheckboxes = document.getElementById('experimentCheckboxes');
+      
+      fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            try {
+              const data = JSON.parse(event.target.result);
+              // Clear existing checkboxes
+              experimentCheckboxes.innerHTML = '';
+              
+              // Add new checkboxes for each experiment
+              data.experiments.forEach((exp, index) => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-item';
+                label.innerHTML = `
+                  <input type="checkbox" value="${index}"/>
+                  <span>${exp.name || `Experiment ${index + 1}`}</span>
+                `;
+                experimentCheckboxes.appendChild(label);
+              });
+            } catch (error) {
+              console.error('Error parsing JSON file:', error);
+              alert('Error parsing JSON file. Please check the file format.');
+            }
+          };
+          reader.readAsText(file);
+        }
+      });
+    });
+  </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  fetch('/list_experiments')
+    .then(response => response.json())
+    .then(data => {
+      const dropdown = document.getElementById('experiment_dropdown');
+      data.experiments.forEach(exp => {
+        const option = document.createElement('option');
+        option.value = exp.config_id;
+        option.textContent = `Experiment ${exp.config_id}: ${exp.generator_type} (${exp.timestamp})`;
+        dropdown.appendChild(option);
+      });
+    });
+});
+</script>
+
+<script>
+document.querySelector(".btn-primary").addEventListener("click", function () {
+    const input = document.getElementById("jsonFileInput");
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append("json_file", file);
+
+    fetch("/upload_json", {
+        method: "POST",
+        body: formData
+    }).then(res => res.json())
+      .then(data => {
+        if (data.status === "success") {
+            alert("Upload successful: " + data.filename);
+        } else {
+            alert("Error: " + data.message);
+        }
+    });
+});
+</script>
+
+
+<script>
+  document.querySelector(".btn-success").addEventListener("click", function () {
+      const input = document.getElementById("jsonFileInput");
+      const file = input.files[0];
+      if (!file) {
+          alert("Please upload a JSON file first.");
+          return;
+      }
+  
+      fetch("/generate_visuals/" + file.name)
+      .then(res => res.json())
+      .then(data => {
+          if (data.status === "success") {
+              const chartArea = document.querySelectorAll(".chart-container");
+              if (chartArea.length > 0) {
+                  chartArea[0].innerHTML = data.div;
+                  Bokeh.embed.embed_item({target_id: chartArea[0]}, undefined, data.script);
+              }
+          } else {
+              alert("Error: " + data.message);
+          }
+      });
+  });
+  </script>
+  
+
+
+<script>
+document.querySelector(".btn-success").addEventListener("click", function () {
+    const input = document.getElementById("jsonFileInput");
+    const file = input.files[0];
+    if (!file) {
+        alert("Please upload a JSON file first.");
+        return;
+    }
+
+    fetch("/generate_visuals/" + file.name)
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            const chartArea = document.querySelectorAll(".chart-container");
+            if (chartArea.length > 0) {
+                chartArea[0].innerHTML = data.script + data.div;
+            }
+        } else {
+            alert("Error: " + data.message);
+        }
+    });
+});
+
+
+
+</script>
+
+
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.3.4.min.js"></script>
+<script>
+document.querySelector(".btn-success").addEventListener("click", function () {
+    const input = document.getElementById("jsonFileInput");
+    const file = input.files[0];
+    if (!file) {
+        alert("Please upload a JSON file first.");
+        return;
+    }
+
+    fetch("/generate_visuals/" + file.name)
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            const chartArea = document.querySelectorAll(".chart-container");
+            if (chartArea.length > 0) {
+                chartArea[0].innerHTML = data.script + data.div;
+            }
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.error("Visualization error:", err);
+        alert("Error displaying visualization.");
+    });
+});
+</script>
+<script>
+document.getElementById('experiment_dropdown').addEventListener('change', function () {
+    const experimentId = this.value;
+
+    // Fetch and update Bokeh visualizations
+    fetch(`/get_experiment_plot/${experimentId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                // Inject plot divs
+                document.querySelectorAll(".chart-container")[0].innerHTML = data.entropy_div;
+                document.querySelectorAll(".chart-container")[1].innerHTML = data.unique_div;
+
+                // Safely inject script into the page without eval
+                const script = document.createElement("script");
+                script.type = "text/javascript";  // Ensure it's a script type
+                script.textContent = data.script;  // The script from the server
+                document.body.appendChild(script);  // Append the script to the body
+            } else {
+                console.error("Failed to load plot data");
+            }
+        });
+
+    // Fetch and update experiment metadata + expressions
+    fetch(`/get_experiment_metadata/${experimentId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                const details = data.details;
+                const expressions = data.expressions;
+
+                // Update experiment details
+                const detailSpans = document.querySelectorAll(".detail-value");
+                detailSpans[0].textContent = details.generator;
+                detailSpans[1].textContent = details.total_collisions;
+                detailSpans[2].textContent = details.polling_frequency;
+                detailSpans[3].textContent = details.timestamp;
+
+                // Update generator params block
+                document.querySelector(".code-block").textContent = JSON.stringify(details.generator_params, null, 2);
+
+                // Update initial expressions
+                const exprList = document.querySelector(".lambda-list");
+                exprList.innerHTML = "";
+                expressions.forEach(expr => {
+                    const li = document.createElement("li");
+                    li.className = "lambda-item";
+                    li.textContent = expr;
+                    exprList.appendChild(li);
+                });
+            } else {
+                console.error("Failed to load experiment metadata");
+            }
+        });
+});
+
+
+  </script>
+</body>
+</html>
